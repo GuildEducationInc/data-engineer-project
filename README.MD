@@ -46,6 +46,8 @@ Feel free to use any language you are comfortable with. (A JVM language or Pytho
 
 ## Design
 The goal of the design task is to design a system that exposes this data to end users via an HTTP API.
+When designing the system focus on the high level design of the system and how parts of it will interact. 
+You don't need to go very deep on the API, don't worry about defining routes/types/etc. 
 
 Assumptions: 
 * New data files are received monthly
