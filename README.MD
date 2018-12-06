@@ -31,6 +31,8 @@ The designed data model must expose the following information:
 
 # Deliverables
 
+Fork this repository and complete all relevant tasks in that forked repository
+
 ## Data Model 
 Please provide a visual diagram of the chosen data model. 
 
