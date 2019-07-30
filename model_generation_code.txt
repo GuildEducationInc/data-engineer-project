@@ -1,0 +1,134 @@
+Table d_movie {
+  id int [pk]
+  title varchar [not null]
+  overview varchar
+  release_date date [not null]
+  runtime int [not null]
+  status varchar
+  tagline varchar
+  video boolean
+  updated_at timestamp
+  created_at timestamp
+  last_action_id int
+}
+
+Table d_user {
+  id int [pk]
+  name varchar [not null]
+  updated_at timestamp
+  created_at timestamp
+  last_action_id int
+}
+Table d_credit {
+  id int [pk]
+  order int
+}
+
+Table d_cast {
+  id int [pk]
+  character varchar
+  gender int
+  name varchar [not null]
+  profile_path blob
+}
+
+Table d_crew {
+  id int [pk]
+  name varchar [not null]
+  department varchar
+  gender int
+  job varchar
+  profile_path blob
+}
+
+Table d_production_company {
+  id int [pk]
+  company_name varchar [not null]
+  updated_at timestamp
+  created_at timestamp
+  last_action_id int
+}
+
+Table d_production_country {
+  id int [pk]
+  country_name varchar [not null]
+  country_abbreviation varchar(2) [not null]
+  updated_at timestamp
+  created_at timestamp
+  last_action_id int
+}
+
+Table d_language {
+  id int [pk]
+  language_name varchar [not null]
+  language_abbreviation varchar(2)
+  updated_at timestamp
+  created_at timestamp
+  last_action_id int
+}
+
+Table d_keywords {
+  id int [pk]
+  name varchar [not null]
+  updated_at timestamp
+  created_at timestamp
+  last_action_id int
+}
+
+Table f_movie_production {
+  movie_id int
+  production_company_id int
+  production_country_id int
+  updated_at timestamp
+  created_at timestamp
+  last_action_id int
+}
+
+Ref: f_movie_production.movie_id > d_movie.id
+Ref: f_movie_production.production_company_id > d_production_company.id
+Ref: f_movie_production.production_country_id > d_production_country.id
+
+Table f_movie_ratings {
+  movie_id int
+  user_id int
+  rating double
+  updated_at timestamp
+  created_at timestamp
+  last_action_id int
+}
+
+Ref: f_movie_ratings.movie_id > d_movie.id
+Ref: f_movie_ratings.user_id > d_user.id
+
+Table f_movie_language {
+  movie_id int
+  language_id int
+  updated_at timestamp
+  created_at timestamp
+  last_action_id int
+}
+
+Ref: f_movie_language.movie_id > d_movie.id
+Ref: f_movie_language.language_id > d_language.id
+
+Table f_movie_cast {
+  movie_id int
+  cast_id int
+  updated_at timestamp
+  created_at timestamp
+  last_action_id int
+}
+
+Ref: f_movie_cast.movie_id > d_movie.id
+Ref: f_movie_cast.cast_id > d_cast.id
+
+Table f_movie_crew {
+  movie_id int
+  crew_id int
+  updated_at timestamp
+  created_at timestamp
+  last_action_id int
+}
+
+Ref: f_movie_crew.movie_id > d_movie.id
+Ref: f_movie_crew.crew_id > d_crew.id

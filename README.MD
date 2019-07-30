@@ -1,3 +1,29 @@
+# Bryan Linton Notes
+
+Data Model is stored as data_model.pdf
+
+Here are some things I thought were worth mentioning:
+* Used dbdiagram.io to generate the data model
+* Dimension tables start with d_, fact tables start with f_ in the star schema model
+* Normalized the model as much as possible
+* Included created at, updated at, and last action id (user or service principal that made the last update to that column) columns to track and audit history
+* Broke out things like language into it's own dimension in case the movie adds a language in the future (e.g. Toy Story creates a German Version in 2021)
+* Started using branching policy only after getting in core files (don't actually need to do this if it's only me but thought it would be worth doing anyway)
+* Only created one ingestion function, and one api function (i.e. endpoint) due to time constraints, but you can see how the rest would be implemented in the same fashion
+
+If I were actually building this out for a team and had more time I would implement the following:
+* More thorough data model
+* Implement data model in a PostreSQL DB with DDL and some sort of DB Version control (such as flyway: https://flywaydb.org/)
+* Create a dev guide to help with onboarding new developers to this project in the README.md
+* More Object Oriented Python design with classes rather than just a single Python file that does everything
+* API would be configured where each function in my api.py script would be it's own lambda function triggered by AWS API Gateway, routed to an appropriate DNS (e.g. www.guild.com/api/v1/movies)
+* More thorough unit tests to verify that the transformations were being done properly
+* More API endpoints 
+
+This took me a total of x minutes to complete.  There's a lot more I'd like to implement here, but obviously understand you guys want to see what can be done given an alotted time.
+
+
+
 # Overview
 The goal of this project is to get an idea of:
 * Your ability to work with and grok data 
@@ -59,3 +85,25 @@ The design should include:
 * Data serving - How will users access the data?
 
 Be sure to discuss issues and trade-offs around scaling, monitoring, failure recovery, authentication, etc... 
+
+
+# Bryan Linton Notes
+
+Data Model is stored as data_model.pdf
+
+Here are some things I thought were worth mentioning:
+* Used dbdiagram.io to generate the data model
+* Dimension tables start with d_, fact tables start with f_ in the star schema model
+* Normalized the model as much as possible
+* Included created at, updated at, and last action id (user or service principal that made the last update to that column) columns to track and audit history
+* Broke out things like language into it's own dimension in case the movie adds a language in the future (e.g. Toy Story creates a German Version in 2021)
+* Started using branching policy only after getting in core files (don't actually need to do this if it's only me but thought it would be worth doing anyway)
+
+If I were actually building this out for a team and had more time I would implement the following:
+* More thorough data model
+* More Object Oriented Python design with classes rather than just a single Python file that does everything
+* API would be configured where each function in my api.py script would be it's own lambda function triggered by AWS API Gateway, routed to an appropriate DNS (e.g. www.guild.com/api/v1/movies)
+* More thorough unit tests to verify that the transformations were being done properly
+* More API endpoints 
+
+This took me a total of x minutes to complete.  There's a lot more I'd like to implement here, but obviously understand you guys want to see what can be done given an alotted time.  Let me know if you'd like to see more and I can hop back on and add more to this Repository.
