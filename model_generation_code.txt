@@ -1,12 +1,34 @@
+
 Table d_movie {
   id int [pk]
   title varchar [not null]
   overview varchar
+  homepage varchar
+  budget bigint
+  is_adult boolean
   release_date date [not null]
   runtime int [not null]
   status varchar
   tagline varchar
-  video boolean
+  is_video boolean
+  updated_at timestamp
+  created_at timestamp
+  last_action_id int
+}
+
+Table d_genre {
+  id int [pk]
+  name varchar [not null]
+  updated_at timestamp
+  created_at timestamp
+  last_action_id int
+}
+
+Table d_collection {
+  id int [pk]
+  name varchar [not null]
+  poster_path varchar
+  backdrop_path varchar
   updated_at timestamp
   created_at timestamp
   last_action_id int
@@ -19,6 +41,7 @@ Table d_user {
   created_at timestamp
   last_action_id int
 }
+
 Table d_credit {
   id int [pk]
   order int
@@ -132,3 +155,25 @@ Table f_movie_crew {
 
 Ref: f_movie_crew.movie_id > d_movie.id
 Ref: f_movie_crew.crew_id > d_crew.id
+
+Table f_movie_genre {
+  movie_id int
+  genre_id int
+  updated_at timestamp
+  created_at timestamp
+  last_action_id int
+}
+
+Ref: f_movie_genre.movie_id > d_movie.id
+Ref: f_movie_genre.genre_id > d_genre.id
+
+Table f_movie_collection {
+  movie_id int
+  collection_id int
+  updated_at timestamp
+  created_at timestamp
+  last_action_id int
+}
+
+Ref: f_movie_collection.movie_id > d_movie.id
+Ref: f_movie_collection.collection_id > d_collection.id
