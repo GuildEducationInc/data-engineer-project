@@ -6,25 +6,23 @@ try:
 except ImportError:
     import urllib2
 from utilities import get_db,do_query
-
-
-##Read in zip file from s3
-myurl = "https://s3-us-west-2.amazonaws.com/com.guild.us-west-2.public-data/project-data/the-movies-dataset.zip"
-# with urllib.request.urlopen(myurl) as url:
-#     zip_file = url.read()
-file_object =  urllib2.urlopen(myurl)
-
-zip_file = file_object.read()
-##Unzip zip file
-with file_name.ZipFile(zip_file, mode='r') as zipf:
-    for subfile in zipf.namelist():
-        print(subfile)
-
-
+import csv
+import pandas
 
 def parse_movie():
-	##Code to ingest and transform cast data
-	print("Code to ingest and transform cast data")
+	movies_table = []
+
+	##Read in movie file
+	with open('movie_file.csv') as movie_csv:
+	    content = csv.reader(movie_csv)
+	    headers = next(content, None)
+	    #Append relevant columns to movies table
+	    for row in content:
+	        title = row[8]
+	        release_date = row[14]
+	        runtime = row[16]
+	        movies_table.append([title,release_date,runtime])
+	return movies_table
 
 def parse_cast():
 	##Code to ingest and transform cast data
@@ -47,5 +45,9 @@ if __name__ == '__main__':
     	runtime = row[2]
     	#can do this for the rest of the rows
     	movie_insert_query = "INSERT INTO d_movie (title,release_date,runtime,created_at,updated_at,last_action_id) VALUES ('{0}','{1}',{2},now(),now(),1);".format(title,release_date,runtime)
-    	do_query(connection,movie_insert_query)
+    	try:
+            #do_query(connection,movie_insert_query)
+            print("Inserted {} into d_movies".format(row))
+    	except:
+            print("Error Inserting movie {}.  Movie already exists in DB or there was a connection issue".format(title))
 
