@@ -94,14 +94,13 @@ Be sure to discuss issues and trade-offs around scaling, monitoring, failure rec
  
 ![image info](./design/js-systemdesign.png "Title2")
  
-* This architecture design is based on focusing on Consistency and Availability (CAP consideration). Since the assumption of the data gets updated monthly, a relational database should be good enough for analytics usage. I choose to build this through serverless computing considering the needs of scalability and reliability.
+* This architecture design is based on focusing on Consistency and Availability (CAP consideration). Since the assumption is that the data gets updated monthly, a relational database should be good enough for analytics usage. I choose to build this through serverless computing considering the needs of scalability and reliability.
  
 * Quick POC version
   *  New data files are received -> API Gateway -> kick off the lambda function to authenticate the source of the data,
    run data transformations -> Store the data into MySQL database
  
-The above design is based on the assumption that the new data files get added monthly. If the traffic boost, we could
-consider utilizing the other AWS services  to help to decouple the architecture
+The above design is a poc version, for production, we could consider using the other AWS services to help to decouple the pipeline
  
 * Production version
   *  New data files are received -> API Gateway -> AWS Kinesis/SQS (buffer incoming requests)
