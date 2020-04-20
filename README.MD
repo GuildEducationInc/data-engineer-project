@@ -108,8 +108,8 @@ The above design is a poc version, for production, we could consider using the o
    run data transformations -> Store the data into MySQL database
  
 * Authentication: EventBridge, AWS secret manager, KMS
-Monitoring: CloudWatch Logs, PagerDuty, DataDog
-* Failure recovery: Availability, database replica,
+* Monitoring: CloudWatch Logs, PagerDuty, DataDog
+* Failure recovery: Availability - load balancer, database replica, aws auto scaling etc...
  
 * Tradeoffs of above design:
    * Serverless computing tends to cost less, however, increasing traffics can increase the bill unexpectedly.
