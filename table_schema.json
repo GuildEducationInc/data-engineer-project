@@ -1,0 +1,10 @@
+{
+    "dim_genres": "(genre_id serial primary key,name varchar)",
+    "dim_production_company": "(company_id serial primary key,company_name varchar)",
+    "dim_movies": "(movie_id serial primary key, movie_name varchar)",
+    "dim_language": "(language_id serial primary key, language_code varchar, language_name varchar)",
+    "dim_release_status": "(status_id serial primary key, status_code varchar,status_name varchar)",
+    "fact_movies": "(movie_id serial primary key, movie_name varchar, company_id integer, release_date varchar, budget bigint, revenue bigint, popularity float, runtime integer, rating float, original_language integer, belongs_to_collection integer, overview varchar, foreign key (company_id) references dim_production_company (company_id) foreign key (original_language) references languages (id), foreign key (belongs_to_collection) references collections (id))",
+    "bridge_movies_genres": "(id serial primary key, movie_id serial primary key, genre_id integer, release_date varchar,foreign key (movie_id) references movies (id),foreign key (genre_id) references genres (id))",
+    "fact_movies_rating": "(id serial primary key, movie_id serial primary key, rating float, release_date varchar, foreign key (movie_id) references movies (id),foreign key (genre_id) references genres (id))"
+}

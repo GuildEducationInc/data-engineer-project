@@ -59,3 +59,61 @@ The design should include:
 * Data serving - How will users access the data?
 
 Be sure to discuss issues and trade-offs around scaling, monitoring, failure recovery, authentication, etc... 
+
+
+
+
+ 
+## Jing Scribner
+ 
+## Notes:
+* I used snowflake schema as the data model for this project due to the fact table has a different level of granularity. Ex: a movie could belong to different genres
+   * Benefit - slice the data at different granularity for analytics purpose
+   * Trade-off - an additional level of attribute normalization adds complexity when doing joins
+* Due to the timing, below are the areas that could be improved on:
+   * The data model is not designed thoroughly
+   * The program business logic is not complete. Ex. Could include a folder with more detailed business logic on how to map to dimensional tables to get the foreign keys to update the fact table.
+   * Encapsulate the code better. Ex. Could create a class for the main.py file or even create a common library to encapsulate some functions to make the code more sustain.
+   * Logics for unit tests
+ 
+## Data Model
+ 
+![image info](./design/js-datamodel.png "Title2")
+ 
+## Implement a program that transforms the input data into a form usable by the data model:
+   * `python3 main.py` - The entry point to run the program
+   * `process.py` - The logics of MySQL connector to update the data model
+   * `tests/test_main.py` - The place holder to do unit testing
+   * `db_schema.json` - The table schemas map for processing insertions
+   * `design` - The folder to hold the data model and system design architecture print
+ 
+ 
+ 
+ 
+## Design
+ 
+![image info](./design/js-systemdesign.png "Title2")
+ 
+* This architecture design is based on focusing on Consistency and Availability (CAP consideration). Since the assumption of the data gets updated monthly, a relational database should be good enough for analytics usage. I choose to build this through serverless computing considering the needs of scalability and reliability.
+ 
+* Quick POC version
+  *  New data files are received -> API Gateway -> kick off the lambda function to authenticate the source of the data,
+   run data transformations -> Store the data into MySQL database
+ 
+The above design is based on the assumption that the new data files get added monthly. If the traffic boost, we could
+consider utilizing the other AWS services  to help to decouple the architecture
+ 
+* Production version
+  *  New data files are received -> API Gateway -> AWS Kinesis/SQS (buffer incoming requests)
+   -> kick off the lambda function to authenticate the source of the data,
+   run data transformations -> Store the data into MySQL database
+ 
+* Authentication: EventBridge, AWS secret manager, KMS
+Monitoring: CloudWatch Logs, PagerDuty, DataDog
+* Failure recovery: Availability, database replica,
+ 
+* Tradeoffs of above design:
+   * Serverless computing tends to cost less, however, increasing traffics can increase the bill unexpectedly.
+   It could be tricky and difficult to debugging lambda. Keep in mind to have very detailed and clear logging information to help to debug. Especially if the whole process was set up manually through the UI instead of using terraform or
+   CloudFormation, it could be difficult to track what's going on.
+
