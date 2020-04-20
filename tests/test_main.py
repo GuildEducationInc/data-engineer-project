@@ -1,6 +1,8 @@
 
 import unittest
 from unittest.mock import patch
+from main import extract_dim_genres, extract_production_company,\
+                 extract_dim_movies, extract_fact_movies
 
 class TestMainFunctions(unittest.TestCase):
 
