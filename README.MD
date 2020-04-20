@@ -70,11 +70,14 @@ Be sure to discuss issues and trade-offs around scaling, monitoring, failure rec
 * I used snowflake schema as the data model for this project due to the fact table has a different level of granularity. Ex: a movie could belong to different genres
    * Benefit - slice the data at different granularity for analytics purpose
    * Trade-off - an additional level of attribute normalization adds complexity when doing joins
-* Due to the timing, below are the areas that could be improved on:
+* Due to the timing, below are the areas that could be improved on and the notes I want to add:
    * The data model is not designed thoroughly
    * The program business logic is not complete. Ex. Could include a folder with more detailed business logic on how to map to dimensional tables to get the foreign keys to update the fact table.
-   * Encapsulate the code better. Ex. Could create a class for the main.py file or even create a common library to encapsulate some functions to make the code more sustain.
+   * Encapsulate the code better. Ex. Could create a class for the main.py file or even create a common library to encapsulate some functions to make the code more sustain
    * Logics for unit tests
+   * If the data gets increased so much one day, it could bring down our systems. Having filtering and pagination enabled could reduce the usage of server resources
+   * API gateway could ensure certain level of security of the communication between client and server
+   * Caching data could also improve the performace instead of querying the database to get the data everytime from a request
  
 ## Data Model
  
