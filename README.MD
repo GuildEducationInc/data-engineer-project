@@ -29,33 +29,30 @@ The designed data model must expose the following information:
     * revenue by genre by year
     * profit by genre by year
 
-# Deliverables
+ 
+# Code deliverables
+Clone this repo and provide the final tarball of the finished product. The code should be written in Java or Python
+Requirements:
+* Code must be runnable - Document how to build/run the code
+* Code must solve the problem at hand (this is not supposed to be a big data problem)
+* Code must contain SQL query for gathering `Movie Genre Details:revenue by genre by year` with your data model
+* Input: should take a s3 endpoint to the file as a positional argument (e.g. `cmd s3://com.guild.us-west-2.public-data/project-data/the-movies-dataset.zip`)
+* Output: 
+  * Directory that contains the output files of the processed data
+  * Error log file
 
-Fork this repository and complete all relevant tasks in that forked repository
+## Data Model deliverables
+Please provide a data model that meets the following requirements:
+* Document describing modeling decisions
+* Relational ERD diagram (included relationships) 
+* Evolvable for future needs (don’t just aggregate the exact questions) 
 
-## Data Model 
-Please provide a visual diagram of the chosen data model. 
-
-
-## Implementation
-The input for the program will be the raw data (CSV files) in The Movies Dataset.
-The output for the program will be one or more files that can be used to hydrate the data model. 
-
-Feel free to use any language you are comfortable with. (A JVM language or Python is preferable if possible)
-
-
-## Design
-The goal of the design task is to design a system that exposes this data to end users via an HTTP API.
-When designing the system focus on the high level design of the system and how parts of it will interact. 
-You don't need to go very deep on the API, don't worry about defining routes/types/etc. 
-
-Assumptions: 
-* New data files are received monthly
-* The system should be scalable
-
-The design should include: 
-* Data transformation - using the program implemented above
-* Data storage - How will the data be stored?
-* Data serving - How will users access the data?
+## Design deliverables
+The goal of the design task is to see how you would scale and maintain the system.
+* Propose solutions for an 100x increase in data volume, and an hourly update cadence
+* Propose ideas for data reprocessing:
+  * How would you go about backfilling 1 year worth of data?
+  * How would you avoid impact on the production flow (e.g. concurrent job runs)?
+* What kind of error handling would you put in place?
 
 Be sure to discuss issues and trade-offs around scaling, monitoring, failure recovery, authentication, etc... 
